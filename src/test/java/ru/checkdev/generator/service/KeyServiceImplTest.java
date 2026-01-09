@@ -29,16 +29,16 @@ class KeyServiceImplTest {
         Key key3 = new Key(3, "JUnit");
         List<Key> keyListFromRepo = List.of(key1, key2, key3);
         List<Key> keyListFromService = List.of(key1, key2);
-        var text = "Стек технологий:\n" +
-                "\n" +
-                "Java 11\n" +
-                "Spring\n" +
-                "Spring Data" +
-                "Maven/Gradle\n" +
-                "Git\n" +
-                "BitBucket\n" +
-                "Jenkins\n" +
-                "SonarQube";
+        var text = "Стек технологий:\n"
+                + "\n"
+                + "Java 11\n"
+                + "Spring\n"
+                + "Spring Data"
+                + "Maven/Gradle\n"
+                + "Git\n"
+                + "BitBucket\n"
+                + "Jenkins\n"
+                + "SonarQube";
         when(repository.findAll()).thenReturn(keyListFromRepo);
         assertThat(service.getKeysForExam(text), is(keyListFromService));
     }
