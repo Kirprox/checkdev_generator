@@ -254,3 +254,50 @@ docker compose up
 затем сервисы в следующем порядке:
 
 auth->eureka->generator->mock->desc->site->notification
+## Запуск проекта k8s
+Перед началом убедитесь, что у вас установлены:
+
+Docker Desktop
+
+Minikube
+
+### Клонирование проекта
+Проект состоит из нескольких сервисов (каждый в отдельном репозитории).
+Необходимо скачать все части проекта в одну папку.
+
+### Подготовка структуры проекта
+#### Файл docker-compose.yml и директория k8s находятся в репозитории checkdev_auth.
+Необходимо: переместить их в корень проекта (checkdev/)
+
+Итоговая структура:
+```
+checkdev\
+│
+├─ docker-compose.yml
+├─ k8s\
+│   ├─ auth-spring-deployment.yml
+│   ├─ desc-spring-deployment.yml
+│   └─ ...
+│
+├─ checkdev_auth\
+│   └─ Dockerfile
+├─ checkdev_desc\
+│   └─ Dockerfile
+├─ checkdev_generator\
+│   └─ Dockerfile
+├─ checkdev_mock\
+│   └─ Dockerfile
+├─ checkdev_site\
+│   └─ Dockerfile
+└─ checkdev_notification\
+    └─ Dockerfile
+```
+### Сборка и запуск
+
+сначала необходимо создать образы с помощью команды docker compose build
+
+далее необходимо загрузить каждый образ в миникуб с помощью команды minikube load image <название образа>
+
+далее перейдите в директорию k8s и откройте консоль, необходимо применить все манифесты с помощью команды kubectl apply -f .
+
+далее откройте сайт с помощью команды minikube service site-service
